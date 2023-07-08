@@ -1,3 +1,9 @@
+// Create a player Object
+let player = {
+    name: "Per",
+    chips: 145
+}
+
 let cards = []
 let sum = 0
 let hasBlackJack = false
@@ -7,7 +13,9 @@ let messageEl = document.getElementById("message-el")
 let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 
-console.log(cards)
+let playerEl = document.getElementById("player-el")
+playerEl.textContent = player.name + ": $" + player.chips
+console.log(playerEl)
 
 //Create a function for Random Card
 function getRandomCard() {
@@ -26,38 +34,36 @@ function startGame() {
     isAlive = true;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
-    let cards = [firstCard, secondCard] // Array - ordered list of items
+    cards = [firstCard, secondCard] // Array - ordered list of items
     sum = firstCard + secondCard;
     renderGame();
 }
 
 function renderGame() {
-    // Render out all of the cards we have
-    cardsEl.textContent = "Cards: ";
-    // for loop to render cards
+    cardsEl.textContent = "Cards: "
     for (let i = 0; i < cards.length; i++) {
-        cardsEl.textContent += cards[i] + " ";
+        cardsEl.textContent += cards[i] + " "
     }
-    // Render out the sum
-    sumEl.textContent = "Sum: " + sum;
 
+    sumEl.textContent = "Sum: " + sum
     if (sum <= 20) {
-        message = "Do you want to draw a new card?";
+        message = "Do you want to draw a new card?"
     } else if (sum === 21) {
-        message = "Wohoo! You've got Blackjack!";
+        message = "You've got Blackjack!"
         hasBlackJack = true
     } else {
-        message = "You're out of the game!";
+        message = "You're out of the game!"
+        isAlive = false
     }
-    // Cash Out!
-    messageEl.textContent = message;
+    messageEl.textContent = message
 }
 
 function newCard() {
-    console.log("Drawing a new card from the deck!");
-    let card = getRandomCard();
-    sum += card;
-    //Push the card to the cards array
-    cards.push(card);
-    renderGame();
+    // Only allow the player to get a new card if she IS alive and does NOT have Blackjack
+    if (isAlive === true && hasBlackJack === false) {
+        let card = getRandomCard()
+        sum += card
+        cards.push(card)
+        renderGame()
+    }
 }
