@@ -27,5 +27,10 @@ function startGame() {
     }
     // Cash Out!
     messageEl.textContent = message;
-    console.log(message);
+}
+
+function newCard() {
+    let card = 8;
+    sum += card;
+    startGame();
 }
